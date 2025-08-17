@@ -1,0 +1,15 @@
+*
+
+!/.gitignore
+
+!*.go
+!go.sum
+!go.mod
+
+!README.md
+!UNLICENSE
+
+!/mcpack/**/*
+!/scripts/**/*
+
+!*/
