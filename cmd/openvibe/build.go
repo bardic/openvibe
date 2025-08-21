@@ -1,21 +1,17 @@
 package main
 
-// import (
-// 	"github.com/spf13/afero"
-// 	"github.com/spf13/cobra"
-// )
+import (
+	"os"
 
-// var (
-// 	FS  afero.Fs
-// 	Cmd = &cobra.Command{
-// 		Use:   "build",
-// 		Short: "packages files for release",
-// 		Run: func(cmd *cobra.Command, args []string) {
+	"github.com/spf13/cobra"
+)
 
-// 		},
-// 	}
-// )
-
-// func init() {
-
-// }
+func newBuildCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "build",
+		Short: "removes all generated files from workspace",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return os.RemoveAll(args[0])
+		},
+	}
+}

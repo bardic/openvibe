@@ -160,10 +160,6 @@ type TemplateSettings struct {
 	DefaultData  string
 }
 
-type GithubRelease struct {
-	ZipballUrl string `json:"zipball_url"`
-}
-
 type Export struct {
 	Out string
 }

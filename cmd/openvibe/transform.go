@@ -30,7 +30,7 @@ type transformConfig struct {
 	params []string
 }
 
-func NewTransformCmd(fs afero.Fs) *cobra.Command {
+func newTransformCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "transform",
 		Short: "parse input to generate mers and maps",
@@ -155,4 +155,14 @@ func (c *transformCmd) exec() error {
 		ImCmd,
 		c.modifiers...,
 	))
+}
+
+var ImCmd = "magick"
+
+func RunCmd(cmd *exec.Cmd) error {
+	fmt.Print("66")
+	fmt.Println(cmd)
+
+	go cmd.Start()
+	return nil
 }

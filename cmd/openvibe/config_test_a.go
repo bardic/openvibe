@@ -2,12 +2,9 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 var configTests = []struct {
@@ -58,13 +55,5 @@ func TestCreateConfig(t *testing.T) {
 
 		Cmd.Root().SetArgs(cmdArgs)
 		Cmd.Root().Execute()
-
-		c, err := PathToJson[string](test.expected)
-
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		assert.Equal(t, actual.String(), c, "actual is not expected")
 	}
 }

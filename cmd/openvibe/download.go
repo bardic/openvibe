@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -20,7 +21,11 @@ type downloadCmd struct {
 	download string
 }
 
-func NewDownloadCmd(fs afero.Fs) *cobra.Command {
+type GithubRelease struct {
+	ZipballUrl string `json:"zipball_url"`
+}
+
+func newDownloadCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "download",
 		Short: "downloads latest zip of assets from microsoft's github",
@@ -154,4 +159,37 @@ func (c *downloadCmd) extract() error {
 	}
 
 	return nil
+}
+
+func URLToJson[T any](p string) (T, error) {
+	var config T
+
+	resp, err := http.Get(p)
+	if err != nil {
+		return config, err
+	}
+	defer resp.Body.Close()
+
+	fmt.Println(resp)
+
+	return parse[T](resp.Body)
+}
+
+func parse[T any](r io.Reader) (T, error) {
+	var d T
+	data, err := io.ReadAll(r)
+
+	fmt.Println(string(data))
+
+	if err != nil {
+		fmt.Println("err")
+		return d, err
+	}
+
+	json.Unmarshal(data, &d)
+
+	fmt.Println("data")
+	fmt.Println(d)
+
+	return d, nil
 }
