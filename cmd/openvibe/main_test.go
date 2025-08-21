@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"testing"
+
+	"github.com/spf13/afero"
 )
 
 var mainTests = []struct {
@@ -24,22 +26,24 @@ var mainTests = []struct {
 }
 
 func TestRoot(t *testing.T) {
-
 }
 
 func TestVersion(t *testing.T) {
 	actual := new(bytes.Buffer)
 	cmdArgs := []string{"openvibe", "version"}
 
-	Cmd.Root().SetOut(actual)
-	Cmd.Root().SetErr(actual)
+	fs := afero.NewMemMapFs()
+	cmd := newRootCmd(fs)
+
+	cmd.Root().SetOut(actual)
+	cmd.Root().SetErr(actual)
 
 	for _, test := range mainTests {
 		for _, args := range test.args {
 			cmdArgs = append(cmdArgs, args.param, args.arg)
 		}
 
-		Cmd.Root().SetArgs(cmdArgs)
-		Cmd.Root().Execute()
+		cmd.Root().SetArgs(cmdArgs)
+		cmd.Root().Execute()
 	}
 }

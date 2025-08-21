@@ -45,15 +45,15 @@ func TestCreateConfig(t *testing.T) {
 	actual := new(bytes.Buffer)
 	cmdArgs := []string{"openvibe", "config"}
 
-	Cmd.Root().SetOut(actual)
-	Cmd.Root().SetErr(actual)
+	configCmd().Root().SetOut(actual)
+	configCmd().Root().SetErr(actual)
 
 	for _, test := range configTests {
 		for _, args := range test.args {
 			cmdArgs = append(cmdArgs, args.param, args.arg)
 		}
 
-		Cmd.Root().SetArgs(cmdArgs)
-		Cmd.Root().Execute()
+		configCmd().Root().SetArgs(cmdArgs)
+		configCmd().Root().Execute()
 	}
 }

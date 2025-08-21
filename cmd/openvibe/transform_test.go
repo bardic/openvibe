@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"testing"
+
+	"github.com/spf13/afero"
 )
 
 var transformTests = []struct {
@@ -31,15 +33,18 @@ func TestTransform(t *testing.T) {
 	actual := new(bytes.Buffer)
 	cmdArgs := []string{"openvibe", "version"}
 
-	Cmd.Root().SetOut(actual)
-	Cmd.Root().SetErr(actual)
+	fs := afero.NewMemMapFs()
+	cmd := NewTransformCmd(fs)
+
+	cmd.Root().SetOut(actual)
+	cmd.Root().SetErr(actual)
 
 	for _, test := range transformTests {
 		for _, args := range test.args {
 			cmdArgs = append(cmdArgs, args.param, args.arg)
 		}
 
-		Cmd.Root().SetArgs(cmdArgs)
-		Cmd.Root().Execute()
+		cmd.Root().SetArgs(cmdArgs)
+		cmd.Root().Execute()
 	}
 }

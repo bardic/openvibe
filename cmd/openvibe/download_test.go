@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,11 +22,13 @@ func TestDownloand(t *testing.T) {
 	baseDir := "./base"
 	downloadDir := "./downloads"
 
+	fs := afero.NewMemMapFs()
+	cmd := NewDownloadCmd(fs)
 	actual := new(bytes.Buffer)
-	Cmd.Root().SetOut(actual)
-	Cmd.Root().SetErr(actual)
-	Cmd.Root().SetArgs([]string{"download", "--url", "https://api.github.com/repos/Mojang/bedrock-samples/releases/latest"})
-	Cmd.Root().Execute()
+	cmd.Root().SetOut(actual)
+	cmd.Root().SetErr(actual)
+	cmd.Root().SetArgs([]string{"download", "--url", "https://api.github.com/repos/Mojang/bedrock-samples/releases/latest"})
+	cmd.Root().Execute()
 
 	expected := ""
 

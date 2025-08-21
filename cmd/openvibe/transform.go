@@ -30,7 +30,7 @@ type transformConfig struct {
 	params []string
 }
 
-func newTransformCmd(fs afero.Fs) *cobra.Command {
+func NewTransformCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "transform",
 		Short: "parse input to generate mers and maps",
@@ -92,7 +92,6 @@ func (c *transformCmd) parse() error {
 			}
 
 			rel, err := filepath.Rel(c.capability, path)
-
 			if err != nil {
 				return nil
 			}
@@ -146,7 +145,6 @@ func (c *transformConfig) replacementEnvs() map[string]string {
 func (c *transformCmd) exec() error {
 	for _, transform := range c.transforms {
 		err := os.MkdirAll(filepath.Dir(transform.out), os.ModePerm)
-
 		if err != nil {
 			return err
 		}

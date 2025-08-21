@@ -22,14 +22,17 @@ func newRootCmd(fs afero.Fs) *cobra.Command {
 		Short: "Create Vibrant Textures Packs for Minecraft Bedrock",
 	}
 
-	cmd.AddCommand(newDownloadCmd(fs))
-	cmd.AddCommand(newTransformCmd(fs))
-	cmd.AddCommand(newVersionCmd())
+	// cmd.AddCommand(NewDownloadCmd(fs))
+
+	NewDownloadCmd(fs)
+
+	// cmd.AddCommand(NewTransformCmd(fs))
+	cmd.AddCommand(NewVersionCmd())
 
 	return cmd
 }
 
-func newVersionCmd() *cobra.Command {
+func NewVersionCmd() *cobra.Command {
 	return &cobra.Command{
 		Use: "version",
 		Run: func(cmd *cobra.Command, args []string) {

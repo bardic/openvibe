@@ -25,7 +25,7 @@ type GithubRelease struct {
 	ZipballUrl string `json:"zipball_url"`
 }
 
-func newDownloadCmd(fs afero.Fs) *cobra.Command {
+func NewDownloadCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "download",
 		Short: "downloads latest zip of assets from microsoft's github",
@@ -60,18 +60,15 @@ func newDownloadCmd(fs afero.Fs) *cobra.Command {
 	cmd.Flags().String("url", "", "-")
 	viper.BindPFlag("url", cmd.Flags().Lookup("url"))
 	return cmd
-
 }
 
 func (c *downloadCmd) prepDisk() error {
 	err := c.appfs.MkdirAll(c.download, os.ModePerm)
-
 	if err != nil {
 		return err
 	}
 
 	err = c.appfs.MkdirAll(c.base, os.ModePerm)
-
 	if err != nil {
 		return err
 	}
@@ -81,9 +78,7 @@ func (c *downloadCmd) prepDisk() error {
 
 // r.ZipballUrl, latestZipPath
 func (c *downloadCmd) DownloadRelease() error {
-
 	r, err := URLToJson[GithubRelease](c.url)
-
 	if err != nil {
 		fmt.Println("meowmeow")
 		return err
@@ -111,7 +106,6 @@ func (c *downloadCmd) DownloadRelease() error {
 
 	// Write the body to file
 	_, err = io.Copy(out, resp.Body)
-
 	if err != nil {
 		return err
 	}
