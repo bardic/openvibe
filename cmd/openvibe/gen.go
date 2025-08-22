@@ -1,7 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/spf13/afero"
+	"github.com/spf13/cobra"
 )
 
 type GenCmd struct {
@@ -13,10 +16,14 @@ type WorkspaceStruct struct {
 	Folders []string `json:"folders"`
 }
 
-func NewGenCmd(fs afero.Fs) GenCmd {
-	genCmd := GenCmd{}
-	return genCmd
-
+func newGenCmd(fs afero.Fs) *cobra.Command {
+	return &cobra.Command{
+		Use:   "gen",
+		Short: "generates new workspace filestructure",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return os.RemoveAll(args[0])
+		},
+	}
 }
 
 // var (

@@ -78,7 +78,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func configCmd() *cobra.Command {
+func newConfigCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "config",
 		Short: "creates the workspace config",

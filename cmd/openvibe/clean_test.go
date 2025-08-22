@@ -16,7 +16,8 @@ func Test_cleanCmd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, cleanCmd(), "cleanCmd()")
+			cleanCmd := newCleanCmd()
+			assert.Equalf(t, tt.want, cleanCmd, "cleanCmd()")
 		})
 	}
 }

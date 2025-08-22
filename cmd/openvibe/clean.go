@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func cleanCmd() *cobra.Command {
+func newCleanCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "clean",
 		Short: "removes all generated files from workspace",

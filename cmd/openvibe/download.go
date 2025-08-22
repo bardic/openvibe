@@ -25,7 +25,7 @@ type GithubRelease struct {
 	ZipballUrl string `json:"zipball_url"`
 }
 
-func NewDownloadCmd(fs afero.Fs) *cobra.Command {
+func newDownloadCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "download",
 		Short: "downloads latest zip of assets from microsoft's github",

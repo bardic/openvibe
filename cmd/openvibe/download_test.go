@@ -23,7 +23,7 @@ func TestDownloand(t *testing.T) {
 	downloadDir := "./downloads"
 
 	fs := afero.NewMemMapFs()
-	cmd := NewDownloadCmd(fs)
+	cmd := newDownloadCmd(fs)
 	actual := new(bytes.Buffer)
 	cmd.Root().SetOut(actual)
 	cmd.Root().SetErr(actual)

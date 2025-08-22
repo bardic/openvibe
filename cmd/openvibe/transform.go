@@ -30,7 +30,7 @@ type transformConfig struct {
 	params []string
 }
 
-func NewTransformCmd(fs afero.Fs) *cobra.Command {
+func newTransformCmd(fs afero.Fs) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "transform",
 		Short: "parse input to generate mers and maps",

@@ -22,11 +22,10 @@ func newRootCmd(fs afero.Fs) *cobra.Command {
 		Short: "Create Vibrant Textures Packs for Minecraft Bedrock",
 	}
 
-	// cmd.AddCommand(NewDownloadCmd(fs))
-
-	NewDownloadCmd(fs)
-
-	// cmd.AddCommand(NewTransformCmd(fs))
+	cmd.AddCommand(newDownloadCmd(fs))
+	cmd.AddCommand(newTransformCmd(fs))
+	cmd.AddCommand(newBuildCmd(fs))
+	cmd.AddCommand(newGenCmd(fs))
 	cmd.AddCommand(NewVersionCmd())
 
 	return cmd

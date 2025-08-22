@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 )
@@ -16,7 +17,9 @@ func Test_newBuildCmd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, newBuildCmd(), "newBuildCmd()")
+			fs := afero.NewMemMapFs()
+			buildCmd := newBuildCmd(fs)
+			assert.Equalf(t, tt.want, buildCmd, "newBuildCmd()")
 		})
 	}
 }

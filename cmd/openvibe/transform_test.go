@@ -34,7 +34,7 @@ func TestTransform(t *testing.T) {
 	cmdArgs := []string{"openvibe", "version"}
 
 	fs := afero.NewMemMapFs()
-	cmd := NewTransformCmd(fs)
+	cmd := newTransformCmd(fs)
 
 	cmd.Root().SetOut(actual)
 	cmd.Root().SetErr(actual)
